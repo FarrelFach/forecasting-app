@@ -1,26 +1,6 @@
 <!-- Sidebar -->
 <div class="sidebar">
-      <!-- Sidebar user (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="{{asset('AdminLTE')}}/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
-        </div>
-      </div>
 
-      <!-- SidebarSearch Form -->
-      <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
-        </div>
-      </div>
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -28,24 +8,44 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+            <a href="{{ url('home') }}" class="nav-link {{ request()->is('home*') ? 'active' : '' }}">
+              
               <p>
                 Dashboard
                 <i class="right fas"></i>
               </p>
             </a>
           </li>
+          @can('penjualan')
           <li class="nav-item">
-          <a class="nav-link " href="{{ route('logout') }}" role="button"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-                                    <i class="fas fa-sign-out"></i>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
+            <a href="{{ url('barang') }}" class="nav-link {{ request()->is('barang*') ? 'active' : '' }}">
+              
+              <p>
+                barang
+                <i class="right fas"></i>
+              </p>
+            </a>
+          </li>
+          @endcan
+          @can('gudang')
+          <li class="nav-item">
+            <a href="{{ url('penjualan') }}" class="nav-link {{ request()->is('penjualan*') ? 'active' : '' }}">
+              
+              <p>
+                penjualan
+                <i class="right fas"></i>
+              </p>
+            </a>
+          </li>
+          @endcan
+          <li class="nav-item">
+            <a href="{{ url('prediksi') }}" class="nav-link {{ request()->is('prediksi*') ? 'active' : '' }}">
+              
+              <p>
+                prediksi
+                <i class="right fas"></i>
+              </p>
+            </a>
           </li>
         </ul>
       </nav>

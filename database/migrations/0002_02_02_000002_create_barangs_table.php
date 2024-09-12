@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('barangs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_category')->nullable();
-            $table->foreign('id_category')->references('id')->on('kategoris')->onDelete('set null');
+            $table->foreign('id_category')->references('id')->on('kategoris')->onDelete('cascade');
             $table->string('name');
-            $table->integer('quantity');
-            $table->decimal('price', 12, 2);
+            $table->integer('quantity')->nullable();
             $table->timestamps();
         });
     }

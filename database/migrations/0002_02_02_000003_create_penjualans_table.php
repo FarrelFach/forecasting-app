@@ -11,10 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('prediksi', function (Blueprint $table) {
+        Schema::create('penjualans', function (Blueprint $table) {
             $table->id();
+            $table->integer('wo');
+            $table->integer('invoice');
             $table->unsignedBigInteger('id_barang')->nullable();
-            $table->foreign('id_barang')->references('id')->on('barangs')->onDelete('set null');
+            $table->foreign('id_barang')->references('id')->on('barangs')->onDelete('cascade');
+            $table->date('order_date');
+            $table->string('client');
+            $table->string('description');
             $table->integer('quantity');
             $table->timestamps();
         });
@@ -25,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('prediksis');
+        Schema::dropIfExists('penjualans');
     }
 };
