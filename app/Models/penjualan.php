@@ -26,6 +26,6 @@ class penjualan extends Model
 
     public function barang()
     {
-        return $this->hasMany(barang::class, 'id', 'id_barang');
+        return $this->belongsTo(barang::class, 'id_barang', 'id');
     }
 }

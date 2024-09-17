@@ -86,20 +86,24 @@ class PrediksiController extends Controller
         $weightsArray = array_map('trim', $weightsArray);
         $weightsArray = array_map('floatval', $weightsArray);
 
-        // Retrieve the inventory item
-        $item = penjualan::findOrFail($request->input('itemid'));
+        // Retrieve the penjualan item along with its related barang items
+        $item = penjualan::with('barang')
+                 ->where('id_barang', $request->input('itemid'))
+                 ->firstOrFail();
 
         // Number of periods we want to backtest (let's say 3 backtest periods)
         $numBacktestPeriods = 3;  // Adjust this if needed
         $numWeights = count($weightsArray);
 
         // Fetch historical data (need n + k periods)
-        $historicalData = $item->latest()->take($numWeights + $numBacktestPeriods)->get();
+        $historicalData = $item->orderBy('order_date', 'desc')->take($numWeights + $numBacktestPeriods)->get();
 
+        Log::info('Historical data retrieved:', ['item' => $item]);
         Log::info('Historical data retrieved:', ['data' => $historicalData]);
 
         // Ensure there's enough historical data
         if ($historicalData->count() < ($numWeights + $numBacktestPeriods)) {
+            Log::info('Error woy');
             return response()->json([
                 'error' => 'Not enough data for forecasting and back-testing'
             ], 400);
@@ -113,7 +117,7 @@ class PrediksiController extends Controller
             $weightedSum += $data->quantity * $weightsArray[$key];
         }
 
-        $forecast = $weightedSum / $weightTotal;
+        $forecast = ceil($weightedSum / $weightTotal);
         Log::info('Forecast calculated:', ['forecast' => $forecast]);
 
         // Optionally, save the forecasted data for future period
@@ -160,19 +164,20 @@ class PrediksiController extends Controller
         $kategori = kategori::all();
         Log::info('Error metrics calculated:', ['MAE' => $mae, 'MSE' => $mse]);
         Log::info('Error metrics calculated:', ['had' => $actualValues, 'hfd' => $forecastedValues]);
-
+        $barang = barang::all();
         // Return the forecast and error metrics
-        return view('prediksi.result', [
-            'historiprediksi' => $historicalPrediksi,
-            'item' => $item,
-            'weight' => $weights,
-            'period' => $numWeights,
-            'prediksi' => $forecast,
-            'actualValues' => $actualValues,
-            'forecastedValues' => $forecastedValues,
-            'mae' => $mae,
-            'kategori' => $kategori,
-            'mse' => $mse
-        ]);
+        return view('prediksi.prediksi', compact(
+            'historicalPrediksi',
+            'item',
+            'weights',
+            'numWeights',
+            'forecast',
+            'actualValues',
+            'forecastedValues',
+            'mae',
+            'kategori',
+            'mse',
+            'barang'
+        ));
     }
 }

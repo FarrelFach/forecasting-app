@@ -11,23 +11,23 @@
             <!-- Profile Data Section -->
             <div class="col-md-8">
                 <div class="card-body">
-                    <form action="{{ route('profile.update', Auth::id()) }}" method="POST">
+                    <form action="{{ route('profile.update', Auth::user()->id) }}" method="POST">
                         @csrf
                         @method('PUT')
 
                         <div class="mb-3">
                             <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" name="name" value="{{ Auth::user()->name }}" required>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ Auth::user()->name }}" >
                         </div>
 
                         <div class="mb-3">
                             <label for="role" class="form-label">Jabatan</label>
-                            <input type="text" class="form-control" id="role" name="role" value="Bagian {{ Auth::user()->role }}" readonly>
+                            <input type="text" class="form-control" id="role" name="role" value="Bagian {{ Auth::user()->role }}">
                         </div>
 
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" value="{{ Auth::user()->email }}" required>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ Auth::user()->email }}">
                         </div>
 
                         <div class="mb-3">

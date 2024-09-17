@@ -32,7 +32,7 @@ class HomeController extends Controller
         $totalStock = barang::sum('quantity') ?: 0;
 
         // Get sales data grouped by month, with default values if empty
-        $salesData = penjualan::selectRaw('MONTH(created_at) as month, SUM(quantity) as actual_sales')
+        $salesData = penjualan::selectRaw('MONTH(order_date) as month, SUM(quantity) as actual_sales')
             ->groupBy('month')
             ->get();
 

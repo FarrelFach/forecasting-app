@@ -18,9 +18,9 @@
                   <thead>
                     <tr>
                         <th>No</th>
-                        <th>id_barang</th>
                         <th>wo</th>
                         <th>invoice</th>
+                        <th>Date Oredered</th>
                         <th>client</th>
                         <th>description</th>
                         <th>quantity</th>
@@ -31,11 +31,9 @@
                     @foreach ($penjualan as $data)
                     <tr>
                         <td>{{$loop->iteration}}</td>
-                        @foreach($data->barang as $barang)
-                            <td>{{ $barang->name }}</td>
-                        @endforeach
                         <td>{{$data->wo}}</td>
                         <td>{{$data->invoice}}</td>
+                        <td>{{$data->order_date}}</td>
                         <td>{{$data->client}}</td>
                         <td>{{$data->description}}</td>
                         <td>{{$data->quantity}}</td>

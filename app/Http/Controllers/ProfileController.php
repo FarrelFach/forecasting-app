@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class ProfileController extends Controller
 {
@@ -54,6 +55,11 @@ class ProfileController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        Log::info('Historical data retrieved:', ['id:' => $id, 
+                                                'request:' => $request,
+                                            'name' =>  $request->input('name'),
+                                        'email' =>  $request->input('email'),
+                                    'role' =>  $request->input('role')]);
         // Validate the incoming request data
         $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:255'],

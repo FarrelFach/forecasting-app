@@ -5,7 +5,7 @@
   <div class="row">
     <!-- Monthly Sales Card -->
     <div class="col-md-6">
-      @can('penjualan')
+      
       <div class="card">
         <div class="card-header">
           Monthly Sales
@@ -20,7 +20,7 @@
                         <canvas id="salesVsForecastChart"></canvas>
                     </div>
                 </div>
-      @else
+      
       <div class="card">
         <div class="cardn-header">
             <div class="card-body">
@@ -29,7 +29,7 @@
             </div>
         </div>
       </div>
-      @endcan
+      
     </div>
                 
     <!-- Inventory Forecasting Card -->
@@ -50,9 +50,9 @@
                                     @else
                                         No category or product found
                                     @endif
-                                    @if ($data->forecast_value >= 50000)
+                                    @if ($data->barang->quantity >= $data->forecast_value)
                                         <span class="badge bg-success">On Track</span>
-                                    @elseif ($data->forecast_value < 50000)
+                                    @elseif ($data->barang->quantity < $data->forecast_value)
                                         <span class="badge bg-danger">Below Expectations</span>
                                     @else
                                         <span class="badge bg-warning text-dark">Above Expectations</span>

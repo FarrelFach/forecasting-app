@@ -95,7 +95,7 @@
         <!-- Error Message if there's not enough data -->
         @if(isset($error))
             <div class="alert alert-danger">
-                {{ session('error') }}
+                { $error }
             </div>
         @endif
         </div>

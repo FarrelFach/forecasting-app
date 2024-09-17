@@ -16,7 +16,6 @@
               </p>
             </a>
           </li>
-          @can('penjualan')
           <li class="nav-item">
             <a href="{{ url('barang') }}" class="nav-link {{ request()->is('barang*') ? 'active' : '' }}">
               
@@ -26,8 +25,6 @@
               </p>
             </a>
           </li>
-          @endcan
-          @can('gudang')
           <li class="nav-item">
             <a href="{{ url('penjualan') }}" class="nav-link {{ request()->is('penjualan*') ? 'active' : '' }}">
               
@@ -37,7 +34,7 @@
               </p>
             </a>
           </li>
-          @endcan
+          
           <li class="nav-item">
             <a href="{{ url('prediksi') }}" class="nav-link {{ request()->is('prediksi*') ? 'active' : '' }}">
               
@@ -47,6 +44,7 @@
               </p>
             </a>
           </li>
+          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
